@@ -1,53 +1,51 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 class Dishdetail extends Component {
 
-    constructor(props) {
-        super(props);
-
+    componentDidMount() {
+        console.log("Dishdetail Component componentDidMount is invoked")
     }
 
+    componentDidUpdate() {
+        console.log("Dishdetail Component componentDidUpdate is invoked")
+    }
 
     renderDish(dish) {
-        if(dish != null) {
             return( 
-                <Card>
-                    <CardImg width="100%" src={dish.image} alt={dish.name} />
-                    <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
-                    </CardBody>
-                </Card>    
-            )
-        }
-        else {
-            return(
-                <div></div>
+                <div className="col-12 col-md-5 m-1">
+                    <Card>
+                        <CardImg width="100%" src={dish.image} alt={dish.name} />
+                        <CardBody>
+                            <CardTitle>{dish.name}</CardTitle>
+                            <CardText>{dish.description}</CardText>
+                        </CardBody>
+                    </Card> 
+                </div>   
             );
-        }
+       
     }
 
     renderComments(comments) {
         if (comments != null) {    
-            const X = comments.map(comment => {
-                return (
-                    <li key={comment.id}>
-                        <p>{comment.comment}</p>
-	                    <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'long', day: '2-digit'}).format(new Date(comment.date))}</p>
-                    </li> 
-                );
-            });
             return (
-                <div >
+                <div className="col-12 col-md-5 m-1">
                     <h4>Comments</h4>
 	                <ul className="list-unstyled">
-	                    {X}
+	                    {comments.map(comment => {
+                            return (
+                                <li key={comment.id}>
+                                    <p>{comment.comment}</p>
+	                                <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'long', day: '2-digit'}).format(new Date(comment.date))}</p>
+                                </li> 
+                            );
+                        })}
 	                </ul>
                 </div>
             ); 
-        }
+        
 
+        }
         else {
             return (
                 <div></div>
@@ -57,16 +55,15 @@ class Dishdetail extends Component {
     }
         
     render() {
+
+        console.log("Dishdetail Component render is invoked")
+
         if (this.props.dish != null) {
             return (
                 <div className="container">
                     <div className="row">
-                        <div className="col-12 col-md-5 m-1">
-                            {this.renderDish(this.props.dish)}
-                        </div>
-                        <div className="col-12 col-md-5 m-1">
-                            {this.renderComments(this.props.dish.comments)}
-                        </div>
+                        {this.renderDish(this.props.dish)}
+                        {this.renderComments(this.props.dish.comments)}    
                     </div>
                 </div>
             );
