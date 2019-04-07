@@ -7,3 +7,11 @@ export const InitialFeedback = {
     contactType: 'Tel.',
     message: ''
 };
+export const InitialRegister = {
+    username: '',
+    firstname: '',
+    lastname: '',
+    telnum: '',
+    email: '',
+    password: ''
+};
