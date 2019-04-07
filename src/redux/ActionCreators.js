@@ -85,6 +85,49 @@ export const postFeedback = (firstname, lastname, telnum, email, agree, contactT
     .catch(error =>  { console.log('post feedback', error.message); alert('Your feedback could not be posted\nError: '+error.message); });
 }
 
+// For Register
+export const addRegister = (register) => ({
+    type: ActionTypes.ADD_REGISTER,
+    payload: register
+});
+
+export const postRegister = (username, firstname, lastname, telnum, email, password) => (dispatch) => {
+
+    const newRegister = {
+        username: username,
+        firstname: firstname,
+        lastname: lastname,
+        telnum: telnum,
+        email: email,
+        password: password
+    };
+    newRegister.date = new Date().toISOString();
+    
+    return fetch(baseUrl + 'register', {
+        method: "POST",
+        body: JSON.stringify(newRegister),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        } else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+        },
+        error => {
+                throw error;
+        })
+    .then(response => response.json())
+    .then(response => dispatch(addRegister(response)))
+    .catch(error =>  { console.log('post register', error.message); alert('Your registration could not be posted\nError: '+error.message); });
+}
+
 export const fetchDishes = () => (dispatch) => {
 
     dispatch(dishesLoading(true));

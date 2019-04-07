@@ -8,7 +8,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { postComment, postFeedback, fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+import { postComment, postFeedback, postRegister, fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -26,7 +26,10 @@ const mapDispatchToProps = dispatch => ({
   postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
   postFeedback: (firstname, lastname, telnum, email, agree, contactType, message) =>
     dispatch(postFeedback(firstname, lastname, telnum, email, agree, contactType, message)),
+  postRegister: (username, firstname, lastname, telnum, email, password) =>
+    dispatch(postRegister(username, firstname, lastname, telnum, email, password)),  
   fetchDishes: () => { dispatch(fetchDishes())},
+  resetRegisterForm: () => { dispatch(actions.reset('register'))},
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos()),
@@ -80,7 +83,7 @@ class Main extends Component {
 
     return (
       <div> 
-        <Header />
+        <Header postRegister={this.props.postRegister} resetRegisterForm={this.props.resetRegisterForm} />
         <TransitionGroup>
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
             <Switch>
