@@ -19,28 +19,30 @@ function RenderLeader({ leaders, isLoading, errMess }) {
     }
     else {
         return(
-            <Stagger in>{
-                leaders = leaders.map((leader) => {   
-                    return (
-                        <Fade in>
-                            <div key={leader.id} className="col-12 mt-5">
-                                <Media tag="li">
-                                    <Media left middle>
-                                        <Media object src={baseUrl + leader.image} alt={leader.name} />
-                                    </Media>
-                                    <Fade in>
-                                        <Media body className="ml-5">
-                                            <Media heading>{leader.name}</Media>
-                                            <p>{leader.designation}</p>
-                                            <p>{leader.description}</p>
+            <ul className="list-unstyled">
+                <Stagger in>{
+                    leaders.map((leader) => {   
+                        return (
+                            <Fade in>
+                                <div key={leader.id} className="col-12 mt-5">
+                                    <Media tag="li">
+                                        <Media left middle>
+                                            <Media object src={baseUrl + leader.image} alt={leader.name} />
                                         </Media>
-                                    </Fade>
-                                </Media>
-                            </div>
-                        </Fade>
-                    );   
-                })}
-            </Stagger>
+                                        <Fade in>
+                                            <Media body className="ml-5">
+                                                <Media heading>{leader.name}</Media>
+                                                <p>{leader.designation}</p>
+                                                <p>{leader.description}</p>
+                                            </Media>
+                                        </Fade>
+                                    </Media>
+                                </div>
+                            </Fade>
+                        );   
+                    })}
+                </Stagger>
+            </ul>
         );    
     }
     return (
