@@ -10,7 +10,6 @@ const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
-const validPassword = (val) => /^[A-Z0-9._%+-]+[A-Z0-9.-]+\[A-Z]{2,4}$/i.test(val);
 
 class Header extends Component {
 
@@ -58,7 +57,7 @@ class Header extends Component {
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
         this.props.resetRegisterForm();
-        this.props.postRegister(values.username, values.firstname, values.lastname, values.email, values.password);
+        this.props.postRegister(values.username, values.firstname, values.lastname, values.telnum, values.email, values.password);
 
     }
 
@@ -252,6 +251,28 @@ class Header extends Component {
                                         }}
                                     />
                                 </Col>                        
+                            </Row>
+                            <Row className="form-group">
+                                    <Col>
+                                        <Control.text model=".telnum" id="telnum" name="telnum"
+                                            placeholder="Tel. number"
+                                            className="form-control"
+                                            validators={{
+                                            required, minLength: minLength(3), maxLength: maxLength(15), isNumber
+                                            }}
+                                        />
+                                        <Errors
+                                            className="text-danger"
+                                            model=".telnum"
+                                            show="touched"
+                                            messages={{
+                                                required: ' Required ',
+                                                minLength: 'Must be greater than 2 numbers',
+                                                maxLength: 'Must be 15 numbers or less',
+                                                isNumber: 'Must be a number'
+                                            }}
+                                        />
+                                    </Col>
                             </Row>
                             <Row className="form-group">
                                     <Col>
